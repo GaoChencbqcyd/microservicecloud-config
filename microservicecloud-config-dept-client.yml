@@ -1,0 +1,42 @@
+spring: 
+    profiles:
+        active:
+        - dev
+---
+server:
+    port: 8001
+spring:
+    profiles: dev
+    application:
+        name: microservicecloud-config-dept-client
+    datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: org.gjt.mm.mysql.Driver
+    url: jdbc:mysql://localhost:3306/cloudDB01
+    username: root
+    password: 1234
+    dbcp2:
+      min-idle: 5
+      initial-size: 5
+      max-total: 5
+      max-wait-millis: 200
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  type-aliases-package: com.oppo.springcloud.entities
+  mapper-locations:
+  - classpath:mybatis/mapper/*Mapper.xml
+ 
+ eureka:
+  client: #客户端注册到eureka服务列表
+    service-url:
+      #单击defaultZone: http://localhost:7001/eureka
+      defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
+  instance:
+    instance-id: dept-8001.com #自定义服务名称
+    prefer-ip-address: true #显示访问路径的IP地址
+    
+info: 
+  app.name: oppo-microservicecloud-config01
+  company.name: www.oppo.com
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
